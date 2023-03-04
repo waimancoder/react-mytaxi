@@ -8,6 +8,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LocationDetail from "./pages/mapdisplay";
 import Login from "./pages/login";
 import Register from "./pages/register";
+import Footer from "./components/footer";
+import { PrivacyPolicyPage } from "./pages/privacypolicy";
 import "./transition.css";
 
 function Layout({ children }) {
@@ -15,6 +17,7 @@ function Layout({ children }) {
     <div>
       <Navbar />
       {children}
+      <Footer />
     </div>
   );
 }
@@ -23,36 +26,49 @@ export default function App() {
   return (
     <>
       <Router>
-        <div className={classnames("slide")}>
-          <CSSTransition
-            classNames={{
-              enter: "slide-enter",
-              enterActive: "slide-enter-active",
-              exit: "slide-exit",
-              exitActive: "slide-exit-active",
-            }}
-            timeout={{ enter: 500, exit: 300 }}
-          >
-            <Routes>
-              <Route
-                path="/login"
-                element={
-                  <Layout>
-                    <Login />
-                  </Layout>
-                }
-              />
-              <Route
-                path="/register"
-                element={
-                  <Layout>
-                    <Register />
-                  </Layout>
-                }
-              />
-            </Routes>
-          </CSSTransition>
-        </div>
+        <Routes>
+          <Route
+            exact
+            path="/"
+            element={
+              <Layout>
+                <Login />
+              </Layout>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <Layout>
+                <Login />
+              </Layout>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <Layout>
+                <Register />
+              </Layout>
+            }
+          />
+          <Route
+            path="/location-detail"
+            element={
+              <Layout>
+                <LocationDetail />
+              </Layout>
+            }
+          />
+          <Route
+            path="/Privacy-Policy"
+            element={
+              <Layout>
+                <PrivacyPolicyPage />
+              </Layout>
+            }
+          />
+        </Routes>
       </Router>
     </>
   );

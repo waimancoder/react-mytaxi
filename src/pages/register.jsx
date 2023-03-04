@@ -45,7 +45,7 @@ function Register() {
       });
   };
   return (
-    <div className="flex flex-col items-center justify-center px-6 py-4 mx-auto md:h-screen lg:py-0">
+    <div className="font-Inter flex flex-col items-center px-6 py-20 bg-[#000300] mx-auto md:h-screen	 lg:py-12">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="py-4 mt-6 text-center text-3xl font-extrabold text-white">
           Create an account

@@ -28,8 +28,8 @@ function Login() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center px-6 py-4 mx-auto md:h-screen lg:py-0">
-      <h2 className="mt-6 text-center text-3xl font-extrabold text-white py-4">
+    <div className="font-Inter flex flex-col items-center px-6 py-20 bg-[#000300] mx-auto md:h-screen	 lg:py-12">
+      <h2 className="font-Inter mt-6 text-center text-3xl font-extrabold text-white py-4">
         Sign in to your account
       </h2>
       <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -100,7 +100,7 @@ function Login() {
             </div>
             <button
               type="submit"
-              className="w-full text-yellow-200	 bg-black hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+              className="w-full text-yellow-200	 bg-black hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 transition-all"
             >
               Sign in
             </button>
