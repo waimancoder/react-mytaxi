@@ -11,7 +11,12 @@ const LocationDetail = ({ name }) => {
   const [editingIndex, setEditingIndex] = useState(null);
   const [editedBlocks, setEditedBlocks] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
-  const [blocksToDelete, setBlocksToDelete] = useState([]);
+  const [newLat, setNewLat] = useState("");
+  const [newLng, setNewLng] = useState("");
+  const [newPolygon, setNewPolygon] = useState("");
+  const [editingLat, setEditingLat] = useState(false);
+  const [editingLng, setEditingLng] = useState(false);
+  const [editingPolygon, setEditingPolygon] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
@@ -21,6 +26,9 @@ const LocationDetail = ({ name }) => {
           `http://35.73.85.13/api/locations/Mahallah%20Ali/`
         );
         setData(response.data.data);
+        setNewLat(response.data.data.lat);
+        setNewLng(response.data.data.lng);
+        setNewPolygon(response.data.data.polygon);
       } catch (error) {
         console.error(error);
         setError(error.message);
@@ -84,6 +92,8 @@ const LocationDetail = ({ name }) => {
       setEditingIndex(-1);
     }
     setIsEditing(false);
+    setNewBlocks([]);
+    setEditedBlocks([]);
   };
 
   const handleSaveChanges = async () => {
@@ -92,7 +102,12 @@ const LocationDetail = ({ name }) => {
     const updatedBlocks = [...data.blocks];
 
     // Merge in the new blocks
-    newBlocks.forEach((block) => updatedBlocks.push(block));
+    newBlocks.forEach((block) => {
+      // Check if block is not empty
+      if (block.name && block.lat && block.lng) {
+        updatedBlocks.push(block);
+      }
+    });
 
     // Merge in the edited blocks
     editedBlocks.forEach((editedBlock) => {
@@ -107,6 +122,9 @@ const LocationDetail = ({ name }) => {
     });
     const updatedData = {
       ...data,
+      lat: newLat || data.lat,
+      lng: newLng || data.lng,
+      polygon: newPolygon || data.polygon,
       blocks: updatedBlocks,
     };
     setData(updatedData);
@@ -122,6 +140,12 @@ const LocationDetail = ({ name }) => {
       console.error(error);
     } finally {
       setIsLoading(false);
+      setIsEditing(false);
+      setEditingLat(false);
+      setEditingLng(false);
+      setEditingPolygon(false);
+      setEditedBlocks([]);
+      setNewBlocks([]);
     }
   };
 
@@ -132,7 +156,6 @@ const LocationDetail = ({ name }) => {
     // Reset newBlocks state
     setNewBlocks([]);
     setEditedBlocks([]);
-    setIsEditing(false);
   };
 
   return (
@@ -146,16 +169,61 @@ const LocationDetail = ({ name }) => {
             <div className="grid grid-cols-2 gap-4 w-full">
               <div className="col-span-1">
                 <p className="text-white font-semibold">Latitude:</p>
-                <p>{data.lat}</p>
+                {editingLat ? (
+                  <input
+                    type="text"
+                    name="lat"
+                    value={newLat}
+                    onChange={(e) => setNewLat(e.target.value)}
+                    className="w-full text-white bg-gray-700 rounded-md text-sm dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
+                  />
+                ) : (
+                  <p
+                    className="text-white text-sm cursor-pointer"
+                    onClick={() => setEditingLat(true)}
+                  >
+                    {data.lat}
+                  </p>
+                )}
               </div>
               <div className="col-span-1">
                 <p className=" text-white font-semibold">Longitude:</p>
-                <p className="text-white">{data.lng}</p>
+                {editingLng ? (
+                  <input
+                    type="text"
+                    name="lat"
+                    value={newLng}
+                    onChange={(e) => setNewLng(e.target.value)}
+                    className="w-full text-white bg-gray-700 rounded-md text-sm dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
+                  />
+                ) : (
+                  <p
+                    className="text-white text-sm cursor-pointer"
+                    onClick={() => setEditingLng(true)}
+                  >
+                    {data.lng}
+                  </p>
+                )}
               </div>
             </div>
             <div className="my-4 w-full">
               <p className="text-white font-semibold">Polygon:</p>
-              <p>{data.polygon}</p>
+              {editingPolygon ? (
+                <input
+                  type="text"
+                  name="lat"
+                  value={newPolygon}
+                  onChange={(e) => setNewPolygon(e.target.value)}
+                  className="w-full text-white bg-gray-700 rounded-md text-sm dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
+                />
+              ) : (
+                <p
+                  className="text-white text-sm cursor-pointer"
+                  onClick={() => setEditingPolygon(true)}
+                >
+                  {data.polygon}
+                </p>
+              )}
             </div>
             <div className="bg-gray-900 rounded-lg p-4 my-4 flex-grow">
               <p className="text-white font-semibold">Blocks:</p>
