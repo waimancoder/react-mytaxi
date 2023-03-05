@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 function Footer() {
   return (
-    <footer className="font-Inter justify-between px-4 divide-y text-white dark:bg-gray-800 dark:text-gray-100">
+    <footer className="mt-auto font-Inter justify-between px-4 divide-y text-white dark:bg-gray-800 dark:text-gray-100">
       <div className="container flex flex-col justify-between py-10 mx-auto space-y-8 lg:flex-row lg:space-y-0">
         <div className="lg:w-1/3">
           <a
@@ -17,7 +17,7 @@ function Footer() {
             </h2>
           </a>
         </div>
-        <div className="justify-between grid grid-cols-2 text-sm gap-x-3 gap-y-8 lg:w-2/3 sm:grid-cols-4">
+        <div className="justify-between grid grid-cols-2 text-sm gap-x-3 gap-y-8 lg:w-2/3 sm:grid-cols-3">
           <div className="space-y-3">
             <h3 className="tracking-wide uppercase dark:text-gray-50">
               Product
@@ -60,9 +60,11 @@ function Footer() {
               </li>
             </ul>
           </div>
-          <div className="space-y-3 sm:col-span-2">
-            <div className="uppercase dark:text-gray-50">Social media</div>
-            <div className="flex justify-start space-x-3">
+          <div className="space-y-3 items-center col-span-2 sm:col-span-1 sm:justify-start">
+            <div className="uppercase text-center sm:text-start dark:text-gray-50">
+              Social media
+            </div>
+            <div className="flex justify-center sm:justify-start space-x-3">
               <a
                 rel="noopener noreferrer"
                 href="#"
