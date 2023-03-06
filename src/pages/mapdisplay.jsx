@@ -5,11 +5,13 @@ import * as ioIcons from "react-icons/io5";
 import LoadingModal from "../components/loadingModal";
 import DropdownMenu from "../components/dropdownMenu";
 import { useParams } from "react-router-dom";
+import AddLocationModal from "./addLocationModal";
+import { list } from "postcss";
 
 const LocationDetail = () => {
   const { name } = useParams();
   const [data, setData] = useState(null);
-  const [listData, setListData] = useState(null);
+  const [listData, setListData] = useState([]);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [newBlocks, setNewBlocks] = useState([]);
@@ -25,6 +27,9 @@ const LocationDetail = () => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [options, setOptions] = useState([]);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -73,6 +78,18 @@ const LocationDetail = () => {
       setIsLoading(false);
     });
   }, []);
+
+  useEffect(() => {
+    const fetchLocations = async () => {
+      try {
+        const response = await axios.get("http://35.73.85.13/api/locations");
+        setListData(response.data.data);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+    fetchLocations();
+  }, [listData]);
 
   useEffect(() => {
     if (selectedOption) {
@@ -224,6 +241,10 @@ const LocationDetail = () => {
     setEditedBlocks([]);
   };
 
+  const handleAddLocationClick = () => {
+    setShowModal(true);
+  };
+
   return (
     <>
       {data && (
@@ -248,6 +269,16 @@ const LocationDetail = () => {
                 isOpen={isOpen}
                 toggleMenu={toggleMenu}
               />
+              <div className="text-[#3FFC9E] justify-center items-center px-2 py-2">
+                <ioIcons.IoAddCircleOutline onClick={handleAddLocationClick} />
+                {showModal && (
+                  <AddLocationModal
+                    onClose={() => setShowModal(false)}
+                    prevListData={listData}
+                    setListData={setListData}
+                  />
+                )}
+              </div>
             </div>
 
             <div className="grid grid-cols-2 gap-4 w-full">
