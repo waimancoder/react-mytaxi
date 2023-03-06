@@ -7,7 +7,8 @@ function Dashboard({ children }) {
   return (
     <div>
       <Routes>
-        <Route path="/location-detail" element={<LocationDetail />} />
+        <Route path="/location" element={<LocationDetail />} />
+        <Route path="/location/:name" element={<LocationDetail />} />
       </Routes>
     </div>
   );

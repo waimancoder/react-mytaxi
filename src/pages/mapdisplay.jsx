@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import * as ioIcons from "react-icons/io5";
 import LoadingModal from "../components/loadingModal";
+import DropdownMenu from "../components/dropdownMenu";
+import { useParams } from "react-router-dom";
 
-const LocationDetail = ({ name }) => {
+const LocationDetail = () => {
+  const { name } = useParams();
   const [data, setData] = useState(null);
+  const [listData, setListData] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [newBlocks, setNewBlocks] = useState([]);
@@ -17,18 +22,47 @@ const LocationDetail = ({ name }) => {
   const [editingLat, setEditingLat] = useState(false);
   const [editingLng, setEditingLng] = useState(false);
   const [editingPolygon, setEditingPolygon] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsLoading(true);
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `http://35.73.85.13/api/locations/Mahallah%20Ali/`
-        );
-        setData(response.data.data);
-        setNewLat(response.data.data.lat);
-        setNewLng(response.data.data.lng);
-        setNewPolygon(response.data.data.polygon);
+        if (name == null) {
+          const emptyData = {
+            name: "",
+            polygon: "",
+            lat: "",
+            lng: "",
+            blocks: [],
+          };
+
+          setData(emptyData);
+          setNewLat(emptyData.lat);
+          setNewLng(emptyData.lng);
+          setNewPolygon(emptyData.polygon);
+          const response2 = await axios.get(`http://35.73.85.13/api/locations`);
+          setListData(response2.data.data);
+        } else {
+          const response = await axios.get(
+            `http://35.73.85.13/api/locations/${name}/`
+          );
+          const data = response.data.data;
+          setData(data);
+          setNewLat(data.lat);
+          setNewLng(data.lng);
+          setNewPolygon(data.polygon);
+
+          const response2 = await axios.get(`http://35.73.85.13/api/locations`);
+          setListData(response2.data.data);
+
+          if (data.name) {
+            setSelectedOption({ label: data.name, value: data.name });
+          }
+        }
       } catch (error) {
         console.error(error);
         setError(error.message);
@@ -40,6 +74,37 @@ const LocationDetail = ({ name }) => {
     });
   }, []);
 
+  useEffect(() => {
+    if (selectedOption) {
+      axios
+        .get(`http://35.73.85.13/api/locations/${selectedOption.label}/`)
+        .then((response) => {
+          setData(response.data.data);
+          setIsLoading(false);
+          setSearchTerm("");
+          setIsOpen(false);
+          setIsLoading(false);
+          setIsEditing(false);
+          setEditingLat(false);
+          setEditingLng(false);
+          setEditingPolygon(false);
+          setEditedBlocks([]);
+          setNewBlocks([]);
+        })
+        .catch((error) => {
+          console.log(error);
+          setIsLoading(false);
+        });
+    }
+  }, [selectedOption]);
+
+  const handleOptionClick = (option) => {
+    setSelectedOption(option);
+    setSearchTerm(option.label);
+    const labelWithoutSpaces = option.label.replace(/\s/g, "%20"); // Replace spaces with %20
+    navigate(`/dashboard/location/${labelWithoutSpaces}`);
+  };
+
   const handleAddBlock = () => {
     setNewBlocks([...newBlocks, { name: "", lat: "", lng: "" }]);
   };
@@ -48,6 +113,10 @@ const LocationDetail = ({ name }) => {
     setEditingIndex(index);
     setIsEditing(true);
     setEditedBlocks([{ ...data.blocks[index] }]);
+  };
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
   };
 
   const handleInputChange = (index, e) => {
@@ -77,7 +146,6 @@ const LocationDetail = ({ name }) => {
           updatedData
         );
         setIsLoading(false);
-        console.log(response.data.data);
         setData(updatedData);
       } catch (error) {
         console.log(error);
@@ -161,11 +229,29 @@ const LocationDetail = ({ name }) => {
   return (
     <>
       {data && (
-        <div className="flex-grow min-h-screen py-20">
+        <div className="flex-grow min-h-screen py-12">
           <div className="container max-w-full px-4 py-8 flex flex-col">
-            <h2 className="text-white text-2xl font-bold mb-4">
-              <span>🏡</span> {data.name}
-            </h2>
+            <div className="flex text-2xl font-medium py-4">
+              <DropdownMenu
+                options={
+                  listData &&
+                  listData.map((data) => ({
+                    label: data.name,
+                    value: data.name.toLowerCase().replace(/\s+/g, "-"),
+                  }))
+                }
+                selectedOption={selectedOption}
+                handleOptionClick={handleOptionClick}
+                searchTerm={searchTerm}
+                setSearchTerm={setSearchTerm}
+                buttonClassName="inline-flex whitespace-nowrap justify-start rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-blue-700 text-sm font-medium text-white hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
+                listClassName="justify-start absolute left-0 z-10 mt-2 rounded-md shadow-lg bg-white divide-y divide-gray-100"
+                listItemClassName="flex whitespace-nowrap w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                isOpen={isOpen}
+                toggleMenu={toggleMenu}
+              />
+            </div>
+
             <div className="grid grid-cols-2 gap-4 w-full">
               <div className="col-span-1">
                 <p className="text-white font-semibold">Latitude:</p>

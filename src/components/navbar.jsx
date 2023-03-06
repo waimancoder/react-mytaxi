@@ -143,7 +143,7 @@ function DashboardNavbar() {
           </div>
         </div>
       </nav>
-      {isSidebarOpen && <Sidebar />}
+      {isSidebarOpen && <Sidebar isSidebarOpen={isSidebarOpen} />}
     </>
   );
 }

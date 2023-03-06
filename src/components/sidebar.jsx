@@ -1,14 +1,16 @@
 import React from "react";
 
-function Sidebar() {
+function Sidebar({ isSidebarOpen }) {
   return (
     <div>
       <aside
         id="logo-sidebar"
-        className="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700"
+        className={
+          'fixed top-0 left-0 z-40 h-screen pt-20  bg-white border-r border-gray-200 translate-x-0 dark:bg-gray-800 dark:border-gray-700 block sm:w-64 transition-transform duration-300 ease-in-out ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"} !important'
+        }
         aria-label="Sidebar"
       >
-        <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
+        <div className="sm:h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
           <ul className="space-y-2">
             <li>
               <a
@@ -25,7 +27,9 @@ function Sidebar() {
                   <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
                   <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
                 </svg>
-                <span className="ml-3">Dashboard</span>
+                <span className="hidden sm:inline-flex ml-3 whitespace-nowrap">
+                  Dashboard
+                </span>
               </a>
             </li>
             <li>
@@ -42,8 +46,10 @@ function Sidebar() {
                 >
                   <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
                 </svg>
-                <span className="flex-1 ml-3 whitespace-nowrap">Kanban</span>
-                <span className="inline-flex items-center justify-center px-2 ml-3 text-sm font-medium text-gray-800 bg-gray-200 rounded-full dark:bg-gray-700 dark:text-gray-300">
+                <span className="hidden sm:inline-flex flex-1 ml-3 whitespace-nowrap">
+                  Kanban
+                </span>
+                <span className="hidden sm:inline-flex items-center justify-center px-2 ml-3 text-sm font-medium text-gray-800 bg-gray-200 rounded-full dark:bg-gray-700 dark:text-gray-300">
                   Pro
                 </span>
               </a>
@@ -63,8 +69,10 @@ function Sidebar() {
                   <path d="M8.707 7.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l2-2a1 1 0 00-1.414-1.414L11 7.586V3a1 1 0 10-2 0v4.586l-.293-.293z"></path>
                   <path d="M3 5a2 2 0 012-2h1a1 1 0 010 2H5v7h2l1 2h4l1-2h2V5h-1a1 1 0 110-2h1a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V5z"></path>
                 </svg>
-                <span className="flex-1 ml-3 whitespace-nowrap">Inbox</span>
-                <span className="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">
+                <span className="hidden sm:inline-flex flex-1 ml-3 whitespace-nowrap">
+                  Inbox
+                </span>
+                <span className="hidden sm:inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">
                   3
                 </span>
               </a>
@@ -87,7 +95,9 @@ function Sidebar() {
                     clipRule="evenodd"
                   ></path>
                 </svg>
-                <span className="flex-1 ml-3 whitespace-nowrap">Users</span>
+                <span className="hidden sm:inline-flex flex-1 ml-3 whitespace-nowrap">
+                  Users
+                </span>
               </a>
             </li>
             <li>
@@ -108,7 +118,9 @@ function Sidebar() {
                     clipRule="evenodd"
                   ></path>
                 </svg>
-                <span className="flex-1 ml-3 whitespace-nowrap">Products</span>
+                <span className="hidden sm:inline-flex flex-1 ml-3 whitespace-nowrap">
+                  Products
+                </span>
               </a>
             </li>
             <li>
@@ -129,7 +141,9 @@ function Sidebar() {
                     clipRule="evenodd"
                   ></path>
                 </svg>
-                <span className="flex-1 ml-3 whitespace-nowrap">Sign In</span>
+                <span className="hidden sm:inline-flex flex-1 ml-3 whitespace-nowrap">
+                  Sign In
+                </span>
               </a>
             </li>
             <li>
@@ -150,7 +164,9 @@ function Sidebar() {
                     clipRule="evenodd"
                   ></path>
                 </svg>
-                <span className="flex-1 ml-3 whitespace-nowrap">Sign Up</span>
+                <span className="hidden sm:inline-flex flex-1 ml-3 whitespace-nowrap">
+                  Sign Up
+                </span>
               </a>
             </li>
           </ul>
