@@ -127,10 +127,29 @@ const LocationDetail = () => {
   };
 
   const handleEditedInputChange = (index, e) => {
+    console.log(index);
     const { name, value } = e.target;
-    const edited = [...editedBlocks];
-    edited[0][name] = value;
+    const edited = [...data.blocks];
+    edited[index][name] = value;
     setEditedBlocks(edited);
+
+    console.log("before setData: ", { data, edited });
+
+    setData({
+      ...data,
+      blocks: data.blocks.map((block) => {
+        const editedBlock = edited.find(
+          (editedBlock) => editedBlock.name === block.name
+        );
+        if (editedBlock) {
+          return editedBlock;
+        } else {
+          return block;
+        }
+      }),
+    });
+
+    console.log("after setData: ", { data, edited });
   };
 
   const handleDeleteBlock = async (index) => {
@@ -170,12 +189,6 @@ const LocationDetail = () => {
     const updatedBlocks = [...data.blocks];
 
     // Merge in the new blocks
-    newBlocks.forEach((block) => {
-      // Check if block is not empty
-      if (block.name && block.lat && block.lng) {
-        updatedBlocks.push(block);
-      }
-    });
 
     // Merge in the edited blocks
     editedBlocks.forEach((editedBlock) => {
@@ -183,9 +196,16 @@ const LocationDetail = () => {
         (block) => block.name === editedBlock.name
       );
       if (index !== -1) {
-        updatedBlocks[index] = editedBlock;
-      } else {
-        updatedBlocks.push(editedBlock);
+        updatedBlocks[index].name = editedBlock.name; // Change the name of the existing block
+        updatedBlocks[index].lat = editedBlock.lat; // Update the latitude of the existing block
+        updatedBlocks[index].lng = editedBlock.lng; // Update the longitude of the existing block
+      }
+    });
+
+    newBlocks.forEach((block) => {
+      // Check if block is not empty
+      if (block.name && block.lat && block.lng) {
+        updatedBlocks.push(block);
       }
     });
     const updatedData = {
@@ -347,8 +367,8 @@ const LocationDetail = () => {
                               name="name"
                               className="w-full bg-gray-700 rounded-md text-sm dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
                               value={
-                                isEditing && editedBlocks[0]
-                                  ? editedBlocks[0].name
+                                isEditing && editedBlocks[index] // reference the correct edited block
+                                  ? editedBlocks[index].name
                                   : block.name
                               }
                               onChange={(e) =>
@@ -366,8 +386,8 @@ const LocationDetail = () => {
                               name="lat"
                               className="w-full bg-gray-700 rounded-md text-sm dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
                               value={
-                                isEditing && editedBlocks[0]
-                                  ? editedBlocks[0].lat
+                                isEditing && editedBlocks[index]
+                                  ? editedBlocks[index].lat
                                   : block.lat
                               }
                               onChange={(e) =>
@@ -385,8 +405,8 @@ const LocationDetail = () => {
                               name="lng"
                               className="w-full bg-gray-700 rounded-md text-sm dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400"
                               value={
-                                isEditing && editedBlocks[0]
-                                  ? editedBlocks[0].lng
+                                isEditing && editedBlocks[index]
+                                  ? editedBlocks[index].lng
                                   : block.lng
                               }
                               onChange={(e) =>
