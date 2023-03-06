@@ -199,7 +199,7 @@ const LocationDetail = () => {
 
     try {
       const response = await axios.patch(
-        `http://35.73.85.13/api/locations/Mahallah%20Ali/`,
+        `http://35.73.85.13/api/locations/${name}/`,
         updatedData
       );
 
