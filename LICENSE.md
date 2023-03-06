@@ -1,15 +1,23 @@
-GitHub License - Version 1.0
+# LICENSE
 
-This software is licensed for use only under the following terms and conditions:
+This work is licensed under the Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License. To view a copy of this license, visit [https://creativecommons.org/licenses/by-nc-nd/3.0/](https://creativecommons.org/licenses/by-nc-nd/3.0/) or send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
 
-1. Private Use: You are not allowed to use, modify, or redistribute this software for private purposes.
+## You are free to:
 
-2. Commercial Use: You are not allowed to use, modify, or redistribute this software for commercial purposes.
+- **Share**: Copy and redistribute the material in any medium or format, as long as you give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
 
-3. No Liability: This software is provided "as is," without any warranty or representation of any kind, express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, or non-infringement. In no event shall the author or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage.
+## Under the following terms:
 
-4. Modification and Redistribution: You may not modify or redistribute this software in any form.
+- **Attribution**: You must give appropriate credit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
+- **Non-Commercial**: You may not use the material for commercial purposes.
+- **No Derivatives**: If you remix, transform, or build upon the material, you may not distribute the modified material.
 
-5. Governing Law: This license shall be governed by and construed in accordance with the laws of the jurisdiction in which the author resides, without regard to its conflict of law provisions.
+## Notices:
 
-By using, copying, or distributing this software, you indicate that you have read and agree to be bound by the terms and conditions of this license. If you do not agree to these terms and conditions, you may not use, copy, or distribute this software.
+You do not have to comply with the license for elements of the material in the public domain or where your use is permitted by an applicable exception or limitation.
+
+No warranties are given. The license may not give you all of the permissions necessary for your intended use. For example, other rights such as publicity, privacy, or moral rights may limit how you use the material.
+
+Please note that this license is not recognized by the Open Source Initiative as an Open Source License.
+
+© 2023 Wan Muhammad Fakhruddin Aiman.
