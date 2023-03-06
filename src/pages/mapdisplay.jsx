@@ -127,14 +127,10 @@ const LocationDetail = () => {
   };
 
   const handleEditedInputChange = (index, e) => {
-    console.log(index);
     const { name, value } = e.target;
     const edited = [...data.blocks];
     edited[index][name] = value;
     setEditedBlocks(edited);
-
-    console.log("before setData: ", { data, edited });
-
     setData({
       ...data,
       blocks: data.blocks.map((block) => {
@@ -148,8 +144,6 @@ const LocationDetail = () => {
         }
       }),
     });
-
-    console.log("after setData: ", { data, edited });
   };
 
   const handleDeleteBlock = async (index) => {
@@ -179,28 +173,12 @@ const LocationDetail = () => {
       setEditingIndex(-1);
     }
     setIsEditing(false);
-    setNewBlocks([]);
-    setEditedBlocks([]);
   };
 
   const handleSaveChanges = async () => {
     if (!data) return;
     setIsLoading(true);
     const updatedBlocks = [...data.blocks];
-
-    // Merge in the new blocks
-
-    // Merge in the edited blocks
-    editedBlocks.forEach((editedBlock) => {
-      const index = updatedBlocks.findIndex(
-        (block) => block.name === editedBlock.name
-      );
-      if (index !== -1) {
-        updatedBlocks[index].name = editedBlock.name; // Change the name of the existing block
-        updatedBlocks[index].lat = editedBlock.lat; // Update the latitude of the existing block
-        updatedBlocks[index].lng = editedBlock.lng; // Update the longitude of the existing block
-      }
-    });
 
     newBlocks.forEach((block) => {
       // Check if block is not empty
