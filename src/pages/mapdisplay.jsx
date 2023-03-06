@@ -49,11 +49,13 @@ const LocationDetail = () => {
           setNewLat(emptyData.lat);
           setNewLng(emptyData.lng);
           setNewPolygon(emptyData.polygon);
-          const response2 = await axios.get(`http://35.73.85.13/api/locations`);
+          const response2 = await axios.get(
+            `https://35.73.85.13/api/locations`
+          );
           setListData(response2.data.data);
         } else {
           const response = await axios.get(
-            `http://35.73.85.13/api/locations/${name}/`
+            `https://35.73.85.13/api/locations/${name}/`
           );
           const data = response.data.data;
           setData(data);
@@ -61,7 +63,9 @@ const LocationDetail = () => {
           setNewLng(data.lng);
           setNewPolygon(data.polygon);
 
-          const response2 = await axios.get(`http://35.73.85.13/api/locations`);
+          const response2 = await axios.get(
+            `https://35.73.85.13/api/locations`
+          );
           setListData(response2.data.data);
 
           if (data.name) {
@@ -82,7 +86,7 @@ const LocationDetail = () => {
   useEffect(() => {
     const fetchLocations = async () => {
       try {
-        const response = await axios.get("http://35.73.85.13/api/locations");
+        const response = await axios.get("https://35.73.85.13/api/locations");
         setListData(response.data.data);
       } catch (error) {
         console.error("Error:", error);
@@ -94,7 +98,7 @@ const LocationDetail = () => {
   useEffect(() => {
     if (selectedOption) {
       axios
-        .get(`http://35.73.85.13/api/locations/${selectedOption.label}/`)
+        .get(`https://35.73.85.13/api/locations/${selectedOption.label}/`)
         .then((response) => {
           setData(response.data.data);
           setIsLoading(false);
