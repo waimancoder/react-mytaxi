@@ -21,13 +21,13 @@ function AddLocationModal({ onClose, prevListData, setListData }) {
     };
     setIsLoading(true);
     axios
-      .post("http://35.73.85.13/api/locations", data)
+      .post("https://35.73.85.13/api/locations", data)
       .then((response) => {
         console.log("Success:", response.data);
         onClose(); // Close the modal
         setIsLoading(false);
         axios
-          .get("http://35.73.85.13/api/locations")
+          .get("https://35.73.85.13/api/locations")
           .then((response) => {
             setListData(response.data.data); // Update listData state with new data
           })
